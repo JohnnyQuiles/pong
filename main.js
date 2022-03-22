@@ -9,8 +9,6 @@ const PADDLE_WIDTH = 20;
 // Size of the ball (in px)
 const BALL_SIZE = 20;
 
-//==========================================================================================================================
-
 // Get the computers && players paddle elements
 const computerPaddle = document.querySelector('.computer-paddle');
 const playerPaddle = document.querySelector('.player-paddle');
@@ -23,16 +21,12 @@ let computerPaddleYVelocity = 0; // Determines how direction, speed of [paddle -
 let playerPaddleYPosition = 200;
 let playerPaddleYVelocity = 0;
 
-//**
-
 // Ball X/Y [Position/Velocity]
-let ballPositionY = 300; // when its 480 position is [down] ** when its 0 positions [up] 
-let ballVelocityY = 0.02; // when its POS # goes [up] ** when its NEG # it goes [down]
+let ballPositionY = 0; // when its 480 position is [down] ** when its 0 positions [up] 
+let ballVelocityY = 0.00; // when its POS # goes [up] ** when its NEG # it goes [down]
 
-let ballPositionX = 340; // when its 680 position is [right] ** when its 0 position is [left]
-let ballVelocityX = 0.02; // when its  POS # goes off to [left] ** when its NEG # goes off to [right] 
-
-//==========================================================================================================================
+let ballPositionX = 0; // when its 680 position is [right] ** when its 0 position is [left]
+let ballVelocityX = 0.00; // when its  POS # goes off to [left] ** when its NEG # goes off to [right] 
 
 // Update the pong world
 function update() {
@@ -46,63 +40,57 @@ function update() {
     playerPaddle.style.top = `${playerPaddleYPosition}px`;
 
     // If statements for paddles reaching certain px to stop from leaving game area
-    if (playerPaddleYPosition < 2) {
+    if (playerPaddleYPosition < 0 ) {
         playerPaddleYPosition = `${playerPaddleYPosition}px`;
-    } else if (playerPaddleYPosition > 400) {
-        playerPaddleYPosition = `${playerPaddleYPosition}px` + '300px';
+    } if (playerPaddleYPosition > 400) {
+        playerPaddleYPosition = `${playerPaddleYPosition}px`;
     }
 
-    // Computer if statements
-    if (computerPaddleYPosition < 2) {
-        computerPaddleYPosition = `${computerPaddleYPosition}px`;
-    } else if (computerPaddleYPosition > 400) {
-        computerPaddleYPosition = `${computerPaddleYPosition}px` + '300px';
-    }
-    //==========================================================================================================================
+    // // Computer if statements
+    // if (computerPaddleYPosition < 2) {
+    //     computerPaddleYPosition = `${computerPaddleYPosition}px`;
+    // } else if (computerPaddleYPosition > 400) {
+    //     computerPaddleYPosition = `${computerPaddleYPosition}px` + '300px';
+    // }
 
-    //**
+    // // Update the ball's movement
+    // ballPositionY = ballPositionY - ballVelocityY;
+    // ball.style.top = ballPositionY + 'px';
 
-    // Update the ball's movement
-    ballPositionY = ballPositionY - ballVelocityY;
-    ball.style.top = ballPositionY + 'px';
+    // ballPositionX = ballPositionX - ballVelocityX;
+    // ball.style.left = ballPositionX + 'px';
 
-    ballPositionX = ballPositionX - ballVelocityX;
-    ball.style.left = ballPositionX + 'px';
+    // // Update the ball's velocity
+    // ballVelocityY = ballVelocityY - 0.05;
 
-    // Update the ball's velocity
-    ballVelocityY = ballVelocityY - 0.05;
-  // If statements for [Y] && [X] ball position to stay in area
-    if (ballPositionY < 2) {
-    ballPositionY = 0;
-} else if (ballPositionY > 478) {
-    ballPositionY = 480;
+    // //If statements for [Y] && [X] ball position to stay in area
+    // if (ballPositionY < 2) {
+    //     ballPositionY = 0;
+    // } else if (ballPositionY > 478) {
+    //     ballPositionY = 480;
+    // }
+
+    // if (ballPositionX < 1) {
+    //     ballPositionX = 0;
+    // } else if (ballPositionX > 679) {
+    //     ballPositionX = 680;
+    // }
+
+    // // If statements for [Y] && [X] ball velocity to stay in area
+    // if (ballVelocityY < 0.05) {
+    //     ballVelocityY = ballVelocityY + 4; // POS # goes [up] && NEG # goes [down]
+    // } else if (ballVelocityY > 0.05) {
+    //     ballVelocityY = ballVelocityY - 1;
+    // }
+    // if (ballVelocityX < 0.05) {
+    //     ballVelocityX = 0; // POS # goes off to the [left] && NEG # goes of to the [right]
+    // }
 }
-
-if (ballPositionX < 1) {
-    ballPositionX = 0;
-} else if (ballPositionX > 679) {
-    ballPositionX = 680;
-}
-
-// If statements for [Y] && [X] ball velocity to stay in area
-if (ballVelocityY < 0.05) { 
-    ballVelocityY = ballVelocityY + 4; // POS # goes [up] && NEG # goes [down]
-} else if(ballVelocityY > 0.05) {
-    ballVelocityY = ballVelocityY - 1; 
-}
-if (ballVelocityX < 0.05 ) {
-    ballVelocityX = 0; // POS # goes off to the [left] && NEG # goes of to the [right]
-} 
-}
-
-
-
-
 
 // Call the update() function every 35ms
 setInterval(update, 35);
 
-//==========================================================================================================================
+
 
 // Event listeners to paddles
 document.addEventListener('keydown', function (event) {
@@ -114,8 +102,8 @@ document.addEventListener('keydown', function (event) {
         computerPaddleYVelocity = 3;
     } else if (event.key === 'ArrowUp') {
         computerPaddleYVelocity = - 3;
-    } else if(event.key === 'SpaceBar') {
-        
+    } else if (event.key === 'SpaceBar') {
+
     }
     console.log('keydown', event.key);
 });
