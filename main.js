@@ -14,77 +14,49 @@ const computerPaddle = document.querySelector('.computer-paddle');
 const playerPaddle = document.querySelector('.player-paddle');
 const ball = document.querySelector('.ball');
 
-// The y-velocity of the computers && players paddle
-let computerPaddleYPosition = 200; // Determines start position for [paddle - right];
-let computerPaddleYVelocity = 0; // Determines how direction, speed of [paddle - right] moves ** GOES PAST SCREEN FIX **
+// The y-velocity of the computer paddle
+let computerPaddleYPosition = 200;
+let computerPaddleYVelocity = 0;
 
+// The y-velocity of the player paddle
 let playerPaddleYPosition = 200;
 let playerPaddleYVelocity = 0;
 
-// Ball X/Y [Position/Velocity]
-let ballPositionY = 0; // when its 480 position is [down] ** when its 0 positions [up] 
-let ballVelocityY = 0.00; // when its POS # goes [up] ** when its NEG # it goes [down]
+// The ball position
+let ballXPosition;
+let ballYPosition;
+let ballXVelocity;
+let ballYVelocity;
 
-let ballPositionX = 0; // when its 680 position is [right] ** when its 0 position is [left]
-let ballVelocityX = 0.00; // when its  POS # goes off to [left] ** when its NEG # goes off to [right] 
 
 // Update the pong world
 function update() {
-
     // Update the computer && players paddle's position
     computerPaddleYPosition = computerPaddleYPosition + computerPaddleYVelocity; // ** RIGHT NOW GOING DOWN ** // Determines paddle moves up and down ** ' + ' [up] ** ' - ' [down]; 
     playerPaddleYPosition = playerPaddleYPosition - playerPaddleYVelocity; // ** RIGHT NOW GOING UP ** // Determines paddle moves up and down ** ' + ' [up] ** ' - ' [down]; 
 
     // Apply the y-position 
     computerPaddle.style.top = `${computerPaddleYPosition}px`;
-    playerPaddle.style.top = `${playerPaddleYPosition}px`;
-
-    // If statements for paddles reaching certain px to stop from leaving game area
-    if (playerPaddleYPosition < 0 ) {
-        playerPaddleYPosition = `${playerPaddleYPosition}px`;
-    } if (playerPaddleYPosition > 400) {
-        playerPaddleYPosition = `${playerPaddleYPosition}px`;
+    if (computerPaddleYPosition <= 0 || computerPaddleYPosition >= 400) {
+        computerPaddleYVelocity = computerPaddleYVelocity * -1;
     }
 
-    // // Computer if statements
-    // if (computerPaddleYPosition < 2) {
-    //     computerPaddleYPosition = `${computerPaddleYPosition}px`;
-    // } else if (computerPaddleYPosition > 400) {
-    //     computerPaddleYPosition = `${computerPaddleYPosition}px` + '300px';
-    // }
+    playerPaddle.style.top = `${playerPaddleYPosition}px`;
+    if (playerPaddleYPosition <= 0 || playerPaddleYPosition >= 400) {
+        playerPaddleYVelocity = `${playerPaddleYVelocity}px`;
+    }
 
     // // Update the ball's movement
-    // ballPositionY = ballPositionY - ballVelocityY;
-    // ball.style.top = ballPositionY + 'px';
+    ballXPosition = ballXPosition + ballXVelocity;
+    ballYPosition = ballYPosition + ballYVelocity;
+    ball.style.left = ballXPosition + 'px';
+    ball.style.top = ballYPosition + 'px';
 
-    // ballPositionX = ballPositionX - ballVelocityX;
-    // ball.style.left = ballPositionX + 'px';
+    // Update the ball's velocity
+    ballYVelocity = ballYVelocity - 0.05;
 
-    // // Update the ball's velocity
-    // ballVelocityY = ballVelocityY - 0.05;
-
-    // //If statements for [Y] && [X] ball position to stay in area
-    // if (ballPositionY < 2) {
-    //     ballPositionY = 0;
-    // } else if (ballPositionY > 478) {
-    //     ballPositionY = 480;
-    // }
-
-    // if (ballPositionX < 1) {
-    //     ballPositionX = 0;
-    // } else if (ballPositionX > 679) {
-    //     ballPositionX = 680;
-    // }
-
-    // // If statements for [Y] && [X] ball velocity to stay in area
-    // if (ballVelocityY < 0.05) {
-    //     ballVelocityY = ballVelocityY + 4; // POS # goes [up] && NEG # goes [down]
-    // } else if (ballVelocityY > 0.05) {
-    //     ballVelocityY = ballVelocityY - 1;
-    // }
-    // if (ballVelocityX < 0.05) {
-    //     ballVelocityX = 0; // POS # goes off to the [left] && NEG # goes of to the [right]
-    // }
+    //If statements for [Y] && [X] ball position to stay in area
+    
 }
 
 // Call the update() function every 35ms
